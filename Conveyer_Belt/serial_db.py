@@ -2,12 +2,18 @@ import serial
 import mysql.connector
 import time
 import re
+import configparser
+
+config = configparser.ConfigParser()
+config.read('../config.ini')
+dev = config['dev']
 
 remote = mysql.connector.connect(
-	user='test', password='1234',
-    port=3306,
-	host='database-1.cktq4evzprzg.ap-northeast-2.rds.amazonaws.com',
-	database='conveyor')
+	user = dev['host'],
+    password = dev['password'],
+    port = dev['port'],
+	host = dev['host'],
+	database = dev['database'])
 
 cursor = remote.cursor()
 ser = serial.Serial("/dev/ttyACM0", 9600)
@@ -16,15 +22,15 @@ connected = False
 
 while not connected:
     read = ser.readline().decode()
-    print(read)
-    print(len(read))
+    # print(read)
+    # print(len(read))
     if len(read) == 19:
         connected = True
  
 insert_query = ("insert into rfid (uid, in_time, tag_info, category_id, now_section, section_update_time) \
             values (%s, %s, %s, %s, %s, %s)")
 
-print(read)
+# print(read)
 uid = read.split(":")[0]
 now_ts = time.time()
 tag_info_base = read.split(":")[1]
