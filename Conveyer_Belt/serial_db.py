@@ -15,8 +15,11 @@ ser = serial.Serial("/dev/ttyACM0", 9600)
 connected = False
 
 while not connected:
-	read = ser.readline().decode()
-	connected = True
+    read = ser.readline().decode()
+    print(read)
+    print(len(read))
+    if len(read) == 19:
+        connected = True
  
 insert_query = ("insert into rfid (uid, in_time, tag_info, category_id, now_section, section_update_time) \
             values (%s, %s, %s, %s, %s, %s)")
