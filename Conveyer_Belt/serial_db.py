@@ -43,7 +43,7 @@ while True:
             
             query = "select category_id from rfid where uid=%s"
             cursor.execute(query, (uid,))
-            category_id = remote.fetchone()[0]
+            category_id = cursor.fetchone()[0]
             
             ser.write(category_id.to_bytes())  # 1, 2, 3
             
