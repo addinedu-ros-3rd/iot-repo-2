@@ -2,8 +2,6 @@ from datetime import datetime
 
 import serial
 import mysql.connector
-import time
-import re
 import configparser
 
 config = configparser.ConfigParser()
