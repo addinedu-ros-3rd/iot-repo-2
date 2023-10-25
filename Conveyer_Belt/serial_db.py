@@ -30,11 +30,14 @@ while True:
         if len(read) == 33:
             connected = True
     
+    now_section = int(read.split(":")[0][-1]) + 1
     
-    query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
-
+    if now_section == 1:
+        query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
+    else:
+        query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
+        
     try:
-        now_section = int(read.split(":")[0][-1]) + 1
         uid = read.split(":")[-1].strip().upper()
         now = datetime.now()
         now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
