@@ -43,7 +43,7 @@ while True:
             cursor.execute(query, (uid,))
             category_id = cursor.fetchone()[0]
             
-            ser.write(category_id.to_bytes(1, 'little'))  # 1, 2, 3
+            ser.write(bytes(str(category_id), "utf-8"))  # 1, 2, 3
             
         else:
             query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
