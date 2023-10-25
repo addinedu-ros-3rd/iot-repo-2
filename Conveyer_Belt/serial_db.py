@@ -33,13 +33,12 @@ while True:
     
     query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
 
-    # print(read)
-    now_section = read.split(":")[0][-1] + 1
-    uid = read.split(":")[-1].strip().upper()
-    now = datetime.now()
-    now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
-
     try:
+        now_section = int(read.split(":")[0][-1]) + 1
+        uid = read.split(":")[-1].strip().upper()
+        now = datetime.now()
+        now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
+        
         cursor.execute(query, (now_ts, now_section, now_ts, uid))
         remote.commit()
         # ser.write(b'1')  # 성공 알림
