@@ -5,7 +5,7 @@ from PyQt5 import uic
 import time
 import serial
 
-from_class = uic.loadUiType("./ui/conveyer.ui")[0]
+from_class = uic.loadUiType("../ui/conveyer.ui")[0]
 
 class WindowClass(QMainWindow, from_class) :
     def __init__(self):
