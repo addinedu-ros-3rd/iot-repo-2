@@ -18,28 +18,29 @@ remote = mysql.connector.connect(
 cursor = remote.cursor()
 ser = serial.Serial("/dev/ttyACM0", 9600)
 
-connected = False
+while True:
+    connected = False
 
-while not connected:
-    read = ser.readline().decode()
-    print(read)
-    print(len(read))
-    if len(read) == 33:
-        connected = True
- 
-query = "update rfid set in_time=%s, now_section=1, section_update_time=%s where uid=%s"
+    while not connected:
+        read = ser.readline().decode()
+        print(read)
+        print(len(read))
+        if len(read) == 33:
+            connected = True
+    
+    query = "update rfid set in_time=%s, now_section=1, section_update_time=%s where uid=%s"
 
-# print(read)
-uid = read.split(":")[-1].strip().upper()
-now_ts = time.time()
+    # print(read)
+    uid = read.split(":")[-1].strip().upper()
+    now_ts = time.time()
 
-try:
-    cursor.execute(query, (now_ts, now_ts, uid))
-    remote.commit()
-    ser.write(b'1')  # 성공 알림
-except Exception as e:
-    print(e)
-    ser.write(b'0')  # 실패 알림
+    try:
+        cursor.execute(query, (now_ts, now_ts, uid))
+        remote.commit()
+        ser.write(b'1')  # 성공 알림
+    except Exception as e:
+        print(e)
+        ser.write(b'0')  # 실패 알림
 
 ser.close()
 cursor.close()
