@@ -37,10 +37,10 @@ while True:
     try:
         cursor.execute(query, (now_ts, now_ts, uid))
         remote.commit()
-        ser.write(b'1')  # 성공 알림
+        # ser.write(b'1')  # 성공 알림
     except Exception as e:
         print(e)
-        ser.write(b'0')  # 실패 알림
+        # ser.write(b'0')  # 실패 알림
 
 ser.close()
 cursor.close()
