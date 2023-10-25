@@ -9,7 +9,7 @@ config.read('../config.ini')
 dev = config['dev']
 
 remote = mysql.connector.connect(
-	user = dev['host'],
+	user = dev['user'],
     password = dev['password'],
     port = dev['port'],
 	host = dev['host'],
@@ -22,8 +22,8 @@ connected = False
 
 while not connected:
     read = ser.readline().decode()
-    # print(read)
-    # print(len(read))
+    print(read)
+    print(len(read))
     if len(read) == 19:
         connected = True
  
@@ -31,7 +31,7 @@ insert_query = ("insert into rfid (uid, in_time, tag_info, category_id, now_sect
             values (%s, %s, %s, %s, %s, %s)")
 
 # print(read)
-uid = read.split(":")[0]
+uid = read.split(":")[0].upper()
 now_ts = time.time()
 tag_info_base = read.split(":")[1]
 tag_info = re.sub('[^a-z]', '', tag_info_base)
