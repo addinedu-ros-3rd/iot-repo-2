@@ -30,7 +30,7 @@ while not connected:
 query = "update rfid set in_time=%s, now_section=1, section_update_time=%s where uid=%s"
 
 # print(read)
-uid = read.split(":")[-1].upper()
+uid = read.split(":")[-1].strip().upper()
 now_ts = time.time()
 
 try:
