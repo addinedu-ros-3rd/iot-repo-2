@@ -24,26 +24,17 @@ while not connected:
     read = ser.readline().decode()
     print(read)
     print(len(read))
-    if len(read) == 19:
+    if len(read) == 33:
         connected = True
  
-insert_query = ("insert into rfid (uid, in_time, tag_info, category_id, now_section, section_update_time) \
-            values (%s, %s, %s, %s, %s, %s)")
+query = "update rfid set in_time=%s, now_section=1, section_update_time=%s where uid=%s"
 
 # print(read)
-uid = read.split(":")[0].upper()
+uid = read.split(":")[-1].upper()
 now_ts = time.time()
-tag_info_base = read.split(":")[1]
-tag_info = re.sub('[^a-z]', '', tag_info_base)
-now_section = 1  # receiving
-section_update_time = now_ts
-
-select_query = ("select id from category where name = %s")
-cursor.execute(select_query, (tag_info,))
-category_id = cursor.fetchone()[0]
 
 try:
-    cursor.execute(insert_query, (uid, now_ts, tag_info, category_id, now_section, section_update_time))
+    cursor.execute(query, (now_ts, now_ts, uid))
     remote.commit()
     ser.write(b'1')  # 성공 알림
 except Exception as e:
