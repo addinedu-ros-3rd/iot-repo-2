@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import serial
 import mysql.connector
 import time
@@ -32,7 +34,8 @@ while True:
 
     # print(read)
     uid = read.split(":")[-1].strip().upper()
-    now_ts = time.time()
+    now = datetime.now()
+    now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
 
     try:
         cursor.execute(query, (now_ts, now_ts, uid))
