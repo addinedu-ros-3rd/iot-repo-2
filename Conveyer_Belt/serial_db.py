@@ -30,15 +30,17 @@ while True:
         if len(read) == 33:
             connected = True
     
-    query = "update rfid set in_time=%s, now_section=1, section_update_time=%s where uid=%s"
+    
+    query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
 
     # print(read)
+    now_section = read.split(":")[0][-1] + 1
     uid = read.split(":")[-1].strip().upper()
     now = datetime.now()
     now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
 
     try:
-        cursor.execute(query, (now_ts, now_ts, uid))
+        cursor.execute(query, (now_ts, now_section, now_ts, uid))
         remote.commit()
         # ser.write(b'1')  # 성공 알림
     except Exception as e:
