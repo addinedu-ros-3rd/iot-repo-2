@@ -39,15 +39,22 @@ while True:
         if now_section == 1:
             query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
             cursor.execute(query, (now_ts, now_section, now_ts, uid))
+            remote.commit()
+            
+            query = "select category_id from rfid where uid=%s"
+            cursor.execute(query, (uid,))
+            category_id = remote.fetchone()[0]
+            
+            ser.write(category_id.to_bytes())  # 1, 2, 3
+            
         else:
             query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
             cursor.execute(query, (now_section, now_ts, uid))
-                
-        remote.commit()
+            remote.commit()
         # ser.write(b'1')  # 성공 알림
     except Exception as e:
         print(e)
-        # ser.write(b'0')  # 실패 알림
+        ser.write(b'0')  # 실패 알림
 
 ser.close()
 cursor.close()
