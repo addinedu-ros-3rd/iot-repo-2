@@ -9,8 +9,8 @@
 #define SS_3_PIN        7
 // #define SS_4_PIN        4
 
-#define Servo_1_PIN     A1
-#define Servo_2_PIN     A2
+#define Servo_1_PIN     A2
+#define Servo_2_PIN     A1
 #define Servo_3_PIN     A3
 #define Servo_4_PIN     A4
 
@@ -26,12 +26,14 @@ unsigned long turnedMillis1;
 unsigned long turnedMillis2;
 const long interval1 = 3500;
 const long interval2 = 7000;
-int targetPos1 = 120;
-int targetPos2 = 120;
-int initPos = 0;
-int servoPos1 = initPos;
-int servoPos2 = initPos;
-int speed = 10;
+int targetPos1 = 135;
+int targetPos2 = 30;
+int initPos1 = 180;
+int initPos2 = 0;
+int servoPos1 = initPos1;
+int servoPos2 = initPos2;
+int speed1 = -10;
+int speed2 = 10;
 int ctgry;  // category
 
 byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN};
@@ -72,13 +74,13 @@ void setup() {
   digitalWrite(DCin1Pin, LOW);
   digitalWrite(DCin2Pin, LOW);
   servo1.attach(Servo_1_PIN);
-  servo1.write(initPos);
+  servo1.write(initPos1);
   servo2.attach(Servo_2_PIN);
-  servo2.write(initPos);
-  servo3.attach(Servo_3_PIN);
-  servo3.write(180);
-  servo4.attach(Servo_4_PIN);
-  servo4.write(90);
+  servo2.write(initPos2);
+  // servo3.attach(Servo_3_PIN);
+  // servo3.write(180);
+  // servo4.attach(Servo_4_PIN);
+  // servo4.write(90);
   
 }
 
@@ -117,6 +119,8 @@ void loop() {
     }
   }
 
+
+
   runServo1();
   runServo2();
   
@@ -142,16 +146,12 @@ void loop() {
 
   // while (true)
   // {
-  //   servo1.write(130);
-  //   servo2.write(45);
-  //   servo3.write(90);
-  //   servo4.write(0);
-  //   delay(1000);
+  //   servo1.write(90);
+  //   servo2.write(90);
+  //   delay(500);
   //   servo1. write(0);
   //   servo2. write(0);
-  //   servo3. write(180);
-  //   servo4. write(90);
-  //   delay(1000);
+  //   delay(500);
   //   break;
   // }
   
@@ -164,9 +164,9 @@ int runServo1()
   {
     if (servoMode_1 == 0)
     {
-      if (servoPos1 < targetPos1)
+      if (servoPos1 > targetPos1)
       {
-        servoPos1 += speed;
+        servoPos1 += speed1;
         servo1.write(servoPos1);
       }
       else
@@ -179,16 +179,16 @@ int runServo1()
     {
       if (currentMillis - turnedMillis1 >= interval1)
       {  
-        if (servoPos1 > initPos)
+        if (servoPos1 < initPos1)
         {
-          servoPos1 -= speed;
+          servoPos1 -= speed1;
           servo1.write(servoPos1);
         }
         else
         {
           servoMode_1 = 0;
           turnedMillis1 = millis();
-          servoPos1 = initPos;
+          servoPos1 = initPos1;
           received_1 = 0;
         }
       }
@@ -196,7 +196,7 @@ int runServo1()
   }
   else
   {
-    servo1.write(initPos);
+    servo1.write(initPos1);
   }
 }
 
@@ -209,7 +209,7 @@ int runServo2()
     {
       if (servoPos2 < targetPos2)
       {
-        servoPos2 += speed;
+        servoPos2 += speed2;
         servo2.write(servoPos2);
       }
       else
@@ -222,16 +222,16 @@ int runServo2()
     {
       if (currentMillis - turnedMillis2 >= interval2)
       {  
-        if (servoPos2 > initPos)
+        if (servoPos2 > initPos2)
         {
-          servoPos2 -= speed;
+          servoPos2 -= speed2;
           servo2.write(servoPos2);
         }
         else
         {
           servoMode_2 = 0;
           turnedMillis2 = millis();
-          servoPos2 = initPos;
+          servoPos2 = initPos2;
           received_2 = 0;
         }
       }
@@ -239,7 +239,7 @@ int runServo2()
   }
   else
   {
-    servo2.write(initPos);
+    servo2.write(initPos2);
   }
 }
 
@@ -256,111 +256,111 @@ void dump_byte_array(byte *buffer, byte bufferSize)
   }
 }
 
-void activateServo()
-{
-  if (received_1 == 1)
-  {
-    Serial.println("Category1 received ok");
+// void activateServo()
+// {
+//   if (received_1 == 1)
+//   {
+//     Serial.println("Category1 received ok");
 
-    for (servoPos1 = initPos; servoPos1 <= targetPos1; servoPos1 += speed) {
-      servo1.write(servoPos1);
-      delay(15);
-    }
+//     for (servoPos1 = initPos; servoPos1 <= targetPos1; servoPos1 += speed) {
+//       servo1.write(servoPos1);
+//       delay(15);
+//     }
 
-    received_1 = 0;
+//     received_1 = 0;
 
-    for (servoPos1 = targetPos1; servoPos1 >= initPos; servoPos1 -= speed) {
-      servo1.write(servoPos1);
-      delay(15);
-    }
-  }
-}
-
-
-void activateServoWithArray()
-{
-  if (received[0] == 1)
-  {
-    Serial.println("Category1 received ok");
-    if (servoMode[0] == 0)
-    {
-      Serial.println("first servo mode 0 ok");
-      if (servoPos1 < targetPos1)
-      {
-        Serial.println("servoPos1 < targetPos1 ok");
-        servoPos1 += speed;
-        servo1.write(servoPos1);
-      }
-      else
-      {
-        Serial.println("servoPos1 >= targetPos1 : unexpected");
-        servoMode[0] = 1;
-        turnedMillis1 = millis();
-      }
-    }
-    else
-    {
-      Serial.println("first servo mode not 0");
-      if (currentMillis - turnedMillis1 >= interval1)
-      {  
-        Serial.println("open time fin: 3.5s passed");
-        if (servoPos1 > initPos)
-        {
-          servoPos1 -= speed;
-          servo1.write(servoPos1);
-        }
-        else
-        {
-          servoMode[0] = 0;
-          turnedMillis1 = millis();
-          servoPos1 = initPos;
-          received[0] = 0;
-        }
-      }
-    }
-  }
-  else
-  {
-    servo1.write(initPos);
-  }
+//     for (servoPos1 = targetPos1; servoPos1 >= initPos; servoPos1 -= speed) {
+//       servo1.write(servoPos1);
+//       delay(15);
+//     }
+//   }
+// }
 
 
-  if (received[1] == 1)
-  {
-    if (servoMode[1] == 0)
-    {
-      if (servoPos2 < targetPos2)
-      {
-        servoPos2 += speed;
-        servo1.write(servoPos2);
-      }
-      else
-      {
-        servoMode[1] = 1;
-        turnedMillis2 = millis();
-      }
-    }
-    else
-    {
-      if (currentMillis - turnedMillis2 >= interval2)
-      {  
-        if (servoPos2 > initPos)
-        {
-          servoPos2 -= speed;
-          servo2.write(servoPos2);
-        }
-        else
-        {
-          servoMode[1] = 0;
-          turnedMillis2 = millis();
-          servoPos2 = initPos;
-          received[1] = 0;
-        }
-      }
-    }
-  }
-  else
-  {
-    servo2.write(initPos);
-  }
-}
+// void activateServoWithArray()
+// {
+//   if (received[0] == 1)
+//   {
+//     Serial.println("Category1 received ok");
+//     if (servoMode[0] == 0)
+//     {
+//       Serial.println("first servo mode 0 ok");
+//       if (servoPos1 < targetPos1)
+//       {
+//         Serial.println("servoPos1 < targetPos1 ok");
+//         servoPos1 += speed;
+//         servo1.write(servoPos1);
+//       }
+//       else
+//       {
+//         Serial.println("servoPos1 >= targetPos1 : unexpected");
+//         servoMode[0] = 1;
+//         turnedMillis1 = millis();
+//       }
+//     }
+//     else
+//     {
+//       Serial.println("first servo mode not 0");
+//       if (currentMillis - turnedMillis1 >= interval1)
+//       {  
+//         Serial.println("open time fin: 3.5s passed");
+//         if (servoPos1 > initPos)
+//         {
+//           servoPos1 -= speed;
+//           servo1.write(servoPos1);
+//         }
+//         else
+//         {
+//           servoMode[0] = 0;
+//           turnedMillis1 = millis();
+//           servoPos1 = initPos;
+//           received[0] = 0;
+//         }
+//       }
+//     }
+//   }
+//   else
+//   {
+//     servo1.write(initPos);
+//   }
+
+
+//   if (received[1] == 1)
+//   {
+//     if (servoMode[1] == 0)
+//     {
+//       if (servoPos2 < targetPos2)
+//       {
+//         servoPos2 += speed;
+//         servo1.write(servoPos2);
+//       }
+//       else
+//       {
+//         servoMode[1] = 1;
+//         turnedMillis2 = millis();
+//       }
+//     }
+//     else
+//     {
+//       if (currentMillis - turnedMillis2 >= interval2)
+//       {  
+//         if (servoPos2 > initPos)
+//         {
+//           servoPos2 -= speed;
+//           servo2.write(servoPos2);
+//         }
+//         else
+//         {
+//           servoMode[1] = 0;
+//           turnedMillis2 = millis();
+//           servoPos2 = initPos;
+//           received[1] = 0;
+//         }
+//       }
+//     }
+//   }
+//   else
+//   {
+//     servo2.write(initPos);
+//   }
+// }
