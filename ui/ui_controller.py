@@ -19,11 +19,11 @@ class WindowClass(QMainWindow, from_class) :
         self.setupUi(self)
         self.setWindowTitle("System Manager")
         
-        self.initBelt()
+        # self.initBelt()
         self.btnStart.clicked.connect(self.controlBelt)
         
         self.initDatabase()
-        self.setFromDatabase()
+        # self.setFromDatabase()
         
         self.btnFilterReset.clicked.connect(self.resetDate)
         self.btnSearch.clicked.connect(self.search)
@@ -78,7 +78,6 @@ class WindowClass(QMainWindow, from_class) :
         self.categoryCombo.setCurrentText("전체")
         self.rfidInput.clear()
 
-    
     def setFromDatabase(self):
         self.sql = """select DATE_FORMAT(min(in_time), "%Y-%m-%d %H:%i:%s") from rfid"""
         self.mycursor.execute(self.sql)
@@ -129,6 +128,40 @@ class WindowClass(QMainWindow, from_class) :
         self.statusCombo.addItem("미입고")
         self.statusCombo.addItem("입고")
         self.statusCombo.addItem("출고")
+
+        self.statusCombo.currentIndexChanged.connect(self.change)
+
+
+    def change(self, index):
+        if index == 1:
+            self.inTimeStart.setDisabled(True)
+            self.inTimeEnd.setDisabled(True)
+            self.updateTimeStart.setDisabled(True)
+            self.updateTimeEnd.setDisabled(True)
+            self.outTimeStart.setDisabled(True)
+            self.outTimeEnd.setDisabled(True)
+        elif index == 0:
+            self.inTimeStart.setEnabled(True)
+            self.inTimeEnd.setEnabled(True)
+            self.updateTimeStart.setEnabled(True)
+            self.updateTimeEnd.setEnabled(True)
+            self.outTimeStart.setEnabled(True)
+            self.outTimeEnd.setEnabled(True)
+        elif index == 1:
+            self.inTimeStart.setEnabled(True)
+            self.inTimeEnd.setEnabled(True)
+            self.updateTimeStart.setEnabled(True)
+            self.updateTimeEnd.setEnabled(True)
+            self.outTimeStart.setEnabled(True)
+            self.outTimeEnd.setEnabled(True)
+        elif index == 2:
+            self.inTimeStart.setEnabled(True)
+            self.inTimeEnd.setEnabled(True)
+            self.updateTimeStart.setEnabled(True)
+            self.updateTimeEnd.setEnabled(True)
+            self.outTimeStart.setEnabled(True)
+            self.outTimeEnd.setEnabled(True)
+
 
             
     def search(self):
