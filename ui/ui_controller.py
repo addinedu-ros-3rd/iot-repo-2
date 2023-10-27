@@ -129,7 +129,7 @@ class WindowClass(QMainWindow, from_class) :
         self.rfid = self.rfidInput.toPlainText()
         
         if self.rfid != "":
-            pattern = re.compile("([\w]{2})\s([\w]{2})\s([\w]{2})\s([\w]{2})")
+            pattern = re.compile("([\da-zA-Z]{2})\s([\da-zA-Z]{2})\s([\da-zA-Z]{2})\s([\da-zA-Z]{2})")
             
             if pattern.match(self.rfid) == None:
                 self.rfidInputHelp.setText("RFID 형식은 [00 00 00 0D]입니다.")
