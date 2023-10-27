@@ -19,11 +19,22 @@ class WindowClass(QMainWindow, from_class) :
         self.setupUi(self)
         self.setWindowTitle("System Manager")
         
+        self.minInTime = self.inTimeStart.dateTime()
+        self.maxInTime = self.inTimeEnd.dateTime()
+        self.minUpdateTime = self.updateTimeStart.dateTime()
+        self.maxUpdateTime = self.updateTimeEnd.dateTime()
+        self.minOutTime = self.outTimeStart.dateTime()
+        self.maxOutTime = self.outTimeEnd.dateTime()
+        
+        self.btnStart.setEnabled(False)
         # self.initBelt()
-        self.btnStart.clicked.connect(self.controlBelt)
+        # self.btnStart.clicked.connect(self.controlBelt)
         
         self.initDatabase()
-        # self.setFromDatabase()
+        self.setCombo()
+        # self.setDateFromDatabase()
+        
+        self.statusCombo.currentIndexChanged.connect(self.setDateSelectable)
         
         self.btnFilterReset.clicked.connect(self.resetDate)
         self.btnSearch.clicked.connect(self.search)
@@ -77,45 +88,9 @@ class WindowClass(QMainWindow, from_class) :
         self.outTimeEnd.setDateTime(self.maxOutTime)
         self.categoryCombo.setCurrentText("전체")
         self.rfidInput.clear()
-
-    def setFromDatabase(self):
-        self.sql = """select DATE_FORMAT(min(in_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        minInTimeStr = self.mycursor.fetchone()
-        self.minInTime = QDateTime.fromString(minInTimeStr[0], "yyyy-MM-dd hh:mm:ss")
         
-        self.sql = """select DATE_FORMAT(max(in_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        maxInTimeStr = self.mycursor.fetchone()
-        self.maxInTime = QDateTime.fromString(maxInTimeStr[0], "yyyy-MM-dd hh:mm:ss")
         
-        self.sql = """select DATE_FORMAT(min(section_update_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        minUpdateTimeStr = self.mycursor.fetchone()
-        self.minUpdateTime = QDateTime.fromString(minUpdateTimeStr[0], "yyyy-MM-dd hh:mm:ss")
-        
-        self.sql = """select DATE_FORMAT(max(section_update_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        maxUpdateTimeStr = self.mycursor.fetchone()
-        self.maxUpdateTime = QDateTime.fromString(maxUpdateTimeStr[0], "yyyy-MM-dd hh:mm:ss")
-        
-        self.sql = """select DATE_FORMAT(min(out_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        minOutTimeStr = self.mycursor.fetchone()
-        self.minOutTime = QDateTime.fromString(minOutTimeStr[0], "yyyy-MM-dd hh:mm:ss")
-        
-        self.sql = """select DATE_FORMAT(max(out_time), "%Y-%m-%d %H:%i:%s") from rfid"""
-        self.mycursor.execute(self.sql)
-        maxOutTimeStr = self.mycursor.fetchone()
-        self.maxOutTime = QDateTime.fromString(maxOutTimeStr[0], "yyyy-MM-dd hh:mm:ss")
-        
-        self.inTimeStart.setDateTimeRange(self.minInTime, self.maxInTime)
-        self.inTimeEnd.setDateTimeRange(self.minInTime, self.maxInTime)
-        self.updateTimeStart.setDateTimeRange(self.minUpdateTime, self.maxUpdateTime)
-        self.updateTimeEnd.setDateTimeRange(self.minUpdateTime, self.maxUpdateTime)
-        self.outTimeStart.setDateTimeRange(self.minOutTime, self.maxOutTime)
-        self.outTimeEnd.setDateTimeRange(self.minOutTime, self.maxOutTime)
-        
+    def setCombo(self):
         self.sql = "select ko_name from category order by id"
         self.mycursor.execute(self.sql)
         categoryList = self.mycursor.fetchall()
@@ -129,39 +104,25 @@ class WindowClass(QMainWindow, from_class) :
         self.statusCombo.addItem("입고")
         self.statusCombo.addItem("출고")
 
-        self.statusCombo.currentIndexChanged.connect(self.change)
 
-
-    def change(self, index):
-        if index == 1:
-            self.inTimeStart.setDisabled(True)
-            self.inTimeEnd.setDisabled(True)
-            self.updateTimeStart.setDisabled(True)
-            self.updateTimeEnd.setDisabled(True)
-            self.outTimeStart.setDisabled(True)
-            self.outTimeEnd.setDisabled(True)
-        elif index == 0:
+    def setDateSelectable(self):
+        status = self.statusCombo.currentText()
+        
+        if status == "미입고":
+            self.inTimeStart.setEnabled(False)
+            self.inTimeEnd.setEnabled(False)
+            self.updateTimeStart.setEnabled(False)
+            self.updateTimeEnd.setEnabled(False)
+            self.outTimeStart.setEnabled(False)
+            self.outTimeEnd.setEnabled(False)
+        else:  # 출고
             self.inTimeStart.setEnabled(True)
             self.inTimeEnd.setEnabled(True)
             self.updateTimeStart.setEnabled(True)
             self.updateTimeEnd.setEnabled(True)
             self.outTimeStart.setEnabled(True)
             self.outTimeEnd.setEnabled(True)
-        elif index == 1:
-            self.inTimeStart.setEnabled(True)
-            self.inTimeEnd.setEnabled(True)
-            self.updateTimeStart.setEnabled(True)
-            self.updateTimeEnd.setEnabled(True)
-            self.outTimeStart.setEnabled(True)
-            self.outTimeEnd.setEnabled(True)
-        elif index == 2:
-            self.inTimeStart.setEnabled(True)
-            self.inTimeEnd.setEnabled(True)
-            self.updateTimeStart.setEnabled(True)
-            self.updateTimeEnd.setEnabled(True)
-            self.outTimeStart.setEnabled(True)
-            self.outTimeEnd.setEnabled(True)
-
+            
 
             
     def search(self):
@@ -196,15 +157,16 @@ class WindowClass(QMainWindow, from_class) :
                             (select ko_name from category where id=category_id) as category_name, \
                             in_time, \
                             section_update_time, \
-                            out_time \
+                            out_time, \
+                            tag_info \
                     from rfid \
                     where 1=1 \
-                    AND in_time >= timestamp('" + inTimeStart + "') \
-                    AND in_time <= timestamp('" + inTimeEnd + "') \
-                    AND section_update_time >= timestamp('" + updateTimeStart + "') \
-                    AND section_update_time <= timestamp('" + updateTimeEnd + "') \
-                    AND out_time >= timestamp('" + outTimeStart + "') \
-                    AND out_time <= timestamp('" + outTimeEnd + "')")
+                    AND (in_time IS NULL OR in_time >= timestamp('" + inTimeStart + "')) \
+                    AND (in_time IS NULL OR in_time <= timestamp('" + inTimeEnd + "')) \
+                    AND (section_update_time IS NULL OR section_update_time >= timestamp('" + updateTimeStart + "')) \
+                    AND (section_update_time IS NULL OR section_update_time <= timestamp('" + updateTimeEnd + "')) \
+                    AND (out_time IS NULL OR out_time >= timestamp('" + outTimeStart + "')) \
+                    AND (out_time IS NULL OR out_time <= timestamp('" + outTimeEnd + "'))")
         
         if self.rfid != "":
             self.sql += " AND uid = '" + self.rfid + "'"
@@ -218,7 +180,7 @@ class WindowClass(QMainWindow, from_class) :
         elif self.statusCombo.currentText() == "출고":
             self.sql += " AND out_time IS NOT NULL"
             
-        print(self.sql)
+        # print(self.sql)
         
         self.mycursor.execute(self.sql)
         result = self.mycursor.fetchall()
@@ -237,4 +199,3 @@ if __name__ == "__main__":
     myWindows = WindowClass()
     myWindows.show()
     sys.exit(app.exec_())
-    

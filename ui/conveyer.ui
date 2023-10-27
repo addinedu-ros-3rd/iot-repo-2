@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
+    <width>760</width>
     <height>493</height>
    </rect>
   </property>
@@ -470,7 +470,7 @@
     <rect>
      <x>551</x>
      <y>58</y>
-     <width>80</width>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -486,7 +486,7 @@
     <rect>
      <x>10</x>
      <y>250</y>
-     <width>691</width>
+     <width>741</width>
      <height>231</height>
     </rect>
    </property>
@@ -526,11 +526,16 @@
      <string>출고시점</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>태그정보</string>
+    </property>
+   </column>
   </widget>
   <widget class="QGroupBox" name="controlArea">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>670</x>
      <y>160</y>
      <width>81</width>
      <height>81</height>
@@ -561,7 +566,7 @@
     <rect>
      <x>551</x>
      <y>21</y>
-     <width>81</width>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -569,7 +574,7 @@
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
-    <string>필터 초기화</string>
+    <string>초기화</string>
    </property>
   </widget>
  </widget>
