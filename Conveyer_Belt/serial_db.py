@@ -24,7 +24,7 @@ while True:
     while not connected:
         read = ser.readline().decode()
         print(read)
-        print(len(read))
+        # print(len(read))
         if len(read) == 33:
             connected = True
     
