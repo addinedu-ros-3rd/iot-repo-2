@@ -1,7 +1,8 @@
-
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Servo.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define RST_PIN         9          // Configurable, see typical pin layout above
 #define SS_1_PIN        10         // Configurable, take a unused pin, only HIGH/LOW required, must be different to SS 2
@@ -16,7 +17,7 @@
 
 #define NR_OF_READERS   3
 #define NR_OF_SERVOS    2
-
+#define ARRAYSIZE       20
 
 int DCin1Pin = 6;
 int DCin2Pin = 5;
@@ -34,7 +35,6 @@ int servoPos1 = initPos1;
 int servoPos2 = initPos2;
 int speed1 = -10;
 int speed2 = 10;
-int ctgry;  // category
 
 byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN};
 
@@ -48,12 +48,91 @@ int servoMode[] = {0, 0, 0, 0};
 int servoMode_1 = 0;
 int servoMode_2 = 0;
 
+int numTaggedUID1 = 0;
+int numTaggedUID2 = 0;
+int numTaggedUID3 = 0;
+
 MFRC522 mfrc522[NR_OF_READERS];   // Create MFRC522 instance.
 
 Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
+
+typedef struct Node 
+{
+    String data;
+    struct Node *next;
+}Node;
+ 
+ 
+typedef struct Queue 
+{
+    Node *front;
+    Node *rear; 
+    int count; // 큐 안의 노드 개수  
+};
+ 
+void initQueue(Queue *queue)
+{
+    queue->front = queue->rear = NULL; 
+    queue->count = 0;    // 큐 안의 노드 개수를 0으로 설정
+}
+ 
+int isEmpty(Queue *queue)
+{
+    return queue->count == 0;    // 큐안의 노드 개수가 0이면 빈 상태
+}
+ 
+void enqueue(Queue *queue, int data)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node)); // newNode 생성
+    newNode->data = data;
+    newNode->next = NULL;
+ 
+    if (isEmpty(queue))    // 큐가 비어있을 때
+    {
+        queue->front = newNode;       
+    }
+    else    // 비어있지 않을 때
+    {
+        queue->rear->next = newNode;    //맨 뒤의 다음을 newNode로 설정
+    }
+    queue->rear = newNode;    //맨 뒤를 newNode로 설정   
+    queue->count++;    //큐안의 노드 개수를 1 증가
+}
+ 
+String dequeue(Queue *queue)
+{
+    String data;
+    Node *ptr;
+    ptr = queue->front;    //맨 앞의 노드 ptr 설정 
+    data = ptr->data;    // return 할 데이터  
+    queue->front = ptr->next;    //맨 앞은 ptr의 다음 노드로 설정
+    free(ptr);    // ptr 해제 
+    queue->count--;    //큐의 노드 개수를 1 감소
+    
+    return data;
+}
+ 
+int main(void)
+{
+    int i;
+    Queue queue;
+ 
+    initQueue(&queue);//큐 초기화
+    for (i = 1; i <= 10; i++) 
+    {
+        enqueue(&queue, i);
+    }
+    while (!isEmpty(&queue))    // 큐가 빌 때까지 
+    {
+        printf("%d ", dequeue(&queue));    //큐에서 꺼내온 값 출력
+    }
+    printf("\n");
+    return 0;
+}
+
 
 void setup() {
   pinMode(DCin1Pin, OUTPUT);
@@ -119,8 +198,6 @@ void loop() {
     }
   }
 
-
-
   runServo1();
   runServo2();
   
@@ -136,6 +213,7 @@ void loop() {
       Serial.print(F(": Card UID:"));
       dump_byte_array(mfrc522[reader].uid.uidByte, mfrc522[reader].uid.size);
       Serial.println("");
+      
 
       // Halt PICC
       mfrc522[reader].PICC_HaltA();
@@ -252,115 +330,9 @@ void dump_byte_array(byte *buffer, byte bufferSize)
   for (byte i = 0; i < bufferSize; i++) 
   {
     Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+    String
     Serial.print(buffer[i], HEX);
   }
 }
 
-// void activateServo()
-// {
-//   if (received_1 == 1)
-//   {
-//     Serial.println("Category1 received ok");
 
-//     for (servoPos1 = initPos; servoPos1 <= targetPos1; servoPos1 += speed) {
-//       servo1.write(servoPos1);
-//       delay(15);
-//     }
-
-//     received_1 = 0;
-
-//     for (servoPos1 = targetPos1; servoPos1 >= initPos; servoPos1 -= speed) {
-//       servo1.write(servoPos1);
-//       delay(15);
-//     }
-//   }
-// }
-
-
-// void activateServoWithArray()
-// {
-//   if (received[0] == 1)
-//   {
-//     Serial.println("Category1 received ok");
-//     if (servoMode[0] == 0)
-//     {
-//       Serial.println("first servo mode 0 ok");
-//       if (servoPos1 < targetPos1)
-//       {
-//         Serial.println("servoPos1 < targetPos1 ok");
-//         servoPos1 += speed;
-//         servo1.write(servoPos1);
-//       }
-//       else
-//       {
-//         Serial.println("servoPos1 >= targetPos1 : unexpected");
-//         servoMode[0] = 1;
-//         turnedMillis1 = millis();
-//       }
-//     }
-//     else
-//     {
-//       Serial.println("first servo mode not 0");
-//       if (currentMillis - turnedMillis1 >= interval1)
-//       {  
-//         Serial.println("open time fin: 3.5s passed");
-//         if (servoPos1 > initPos)
-//         {
-//           servoPos1 -= speed;
-//           servo1.write(servoPos1);
-//         }
-//         else
-//         {
-//           servoMode[0] = 0;
-//           turnedMillis1 = millis();
-//           servoPos1 = initPos;
-//           received[0] = 0;
-//         }
-//       }
-//     }
-//   }
-//   else
-//   {
-//     servo1.write(initPos);
-//   }
-
-
-//   if (received[1] == 1)
-//   {
-//     if (servoMode[1] == 0)
-//     {
-//       if (servoPos2 < targetPos2)
-//       {
-//         servoPos2 += speed;
-//         servo1.write(servoPos2);
-//       }
-//       else
-//       {
-//         servoMode[1] = 1;
-//         turnedMillis2 = millis();
-//       }
-//     }
-//     else
-//     {
-//       if (currentMillis - turnedMillis2 >= interval2)
-//       {  
-//         if (servoPos2 > initPos)
-//         {
-//           servoPos2 -= speed;
-//           servo2.write(servoPos2);
-//         }
-//         else
-//         {
-//           servoMode[1] = 0;
-//           turnedMillis2 = millis();
-//           servoPos2 = initPos;
-//           received[1] = 0;
-//         }
-//       }
-//     }
-//   }
-//   else
-//   {
-//     servo2.write(initPos);
-//   }
-// }
