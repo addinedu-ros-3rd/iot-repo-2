@@ -10,6 +10,7 @@ import time
 import serial
 import mysql.connector
 import configparser
+# import serial_db
 
 from_class = uic.loadUiType("conveyer.ui")[0]
 
@@ -38,6 +39,11 @@ class WindowClass(QMainWindow, from_class) :
         
         self.btnFilterReset.clicked.connect(self.resetDate)
         self.btnSearch.clicked.connect(self.search)
+        
+        # received_data = serial_db.read_serial()
+
+        # if received_data == 'w':
+        #     self.showWarning()
         
         
     def initBelt(self):
@@ -122,7 +128,6 @@ class WindowClass(QMainWindow, from_class) :
             self.updateTimeEnd.setEnabled(True)
             self.outTimeStart.setEnabled(True)
             self.outTimeEnd.setEnabled(True)
-            
 
             
     def search(self):
@@ -191,6 +196,10 @@ class WindowClass(QMainWindow, from_class) :
                 self.table.setItem(resultRow, i, QTableWidgetItem(str(v)))
         
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        
+        
+    def showWarning(self):
+        QMessageBox.warning(self, "오분류되었습니다.")
 
 
 if __name__ == "__main__":
