@@ -508,6 +508,11 @@
    </column>
    <column>
     <property name="text">
+     <string>태그정보</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
      <string>분류</string>
     </property>
    </column>
@@ -524,11 +529,6 @@
    <column>
     <property name="text">
      <string>출고시점</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>태그정보</string>
     </property>
    </column>
   </widget>

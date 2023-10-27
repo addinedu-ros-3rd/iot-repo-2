@@ -31,10 +31,10 @@ while True:
     now_section = int(read.split(":")[0][-1]) + 1
     uid = read.split(":")[-1].strip().upper()
     now = datetime.now()
-    now_ts = now.strftime('%Y-%m-%d %H:%M:%S')
+    now_ts = now.strftime('%Y-%m-%d %H:%M:%S')  # 서버의 시간을 보관 = 서버 시간이 UTC이면 UTC로 보관(로컬 테스트 시 한국 시간 저장됨)
     
     try:
-        if now_section == 1:
+        if now_section == 1:  # 센터 최초 입고 시 인식
             query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
             cursor.execute(query, (now_ts, now_section, now_ts, uid))
             remote.commit()
@@ -45,7 +45,7 @@ while True:
             
             ser.write(bytes(str(category_id), "utf-8"))  # 1, 2, 3
             
-        else:
+        else:  # 각 창고 보관 시 인식
             query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
             cursor.execute(query, (now_section, now_ts, uid))
             remote.commit()

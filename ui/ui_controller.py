@@ -153,12 +153,11 @@ class WindowClass(QMainWindow, from_class) :
         outTimeStart = self.outTimeStart.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         outTimeEnd = self.outTimeEnd.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         
-        self.sql = ("select id, uid, \
+        self.sql = ("select id, uid, tag_info, \
                             (select ko_name from category where id=category_id) as category_name, \
                             in_time, \
                             section_update_time, \
-                            out_time, \
-                            tag_info \
+                            out_time \
                     from rfid \
                     where 1=1 \
                     AND (in_time IS NULL OR in_time >= timestamp('" + inTimeStart + "')) \
