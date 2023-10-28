@@ -72,11 +72,16 @@ while True:
     while (not inRead) and (not storeRead) and (not outRead):
         read = ser.readline().decode()
         print(read)
-        print(len(read))
+        # print(len(read))
+        # Reader 0: Card UID: 33 F7 D3 0D
         # store:i:uid
         # out:uid
         if len(read) == 33:
             inRead = True
+        elif len(read) == 22:
+            storeRead = True
+        elif len(read) == 18:
+            outRead = True
     
     uid = read.split(":")[-1].strip().upper()
     now = datetime.now()
