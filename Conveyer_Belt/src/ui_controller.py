@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
 import datetime
-import cv2, imutils
+import cv2
 from PyQt5.QtCore import QThread, pyqtSignal
 import time
 
@@ -57,7 +57,7 @@ class WindowClass(QMainWindow, from_class) :
         
         self.statusCombo.currentIndexChanged.connect(self.setDateSelectable)
         
-        self.btnFilterReset.clicked.connect(self.resetDate)
+        self.btnFilterReset.clicked.connect(self.reset)
         self.btnSearch.clicked.connect(self.search)
         
         # received_data = serial_db.read_serial()
@@ -130,14 +130,24 @@ class WindowClass(QMainWindow, from_class) :
             print("Failed to connect database", e)
             
             
-    def resetDate(self):
+    def reset(self):
         self.inTimeStart.setDateTime(self.minInTime)
         self.inTimeEnd.setDateTime(self.maxInTime)
         self.updateTimeStart.setDateTime(self.minUpdateTime)
         self.updateTimeEnd.setDateTime(self.maxUpdateTime)
         self.outTimeStart.setDateTime(self.minOutTime)
         self.outTimeEnd.setDateTime(self.maxOutTime)
+        
+        self.inTimeStart.setEnabled(True)
+        self.inTimeEnd.setEnabled(True)
+        self.updateTimeStart.setEnabled(True)
+        self.updateTimeEnd.setEnabled(True)
+        self.outTimeStart.setEnabled(True)
+        self.outTimeEnd.setEnabled(True)
+
         self.categoryCombo.setCurrentText("전체")
+        self.statusCombo.setCurrentText("전체")
+        
         self.rfidInput.clear()
         
         
