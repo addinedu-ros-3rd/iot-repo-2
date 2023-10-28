@@ -31,7 +31,6 @@ class WindowClass(QMainWindow, from_class) :
         # self.initBelt()
         # self.btnStart.clicked.connect(self.controlBelt)
         
-        self.initDatabase()
         self.setCombo()
         # self.setDateFromDatabase()
         
@@ -70,7 +69,7 @@ class WindowClass(QMainWindow, from_class) :
             
     def initDatabase(self):
         config = configparser.ConfigParser()
-        config.read('../config.ini')
+        config.read('config.ini')
         dev = config['dev']
         
         try:
@@ -97,9 +96,12 @@ class WindowClass(QMainWindow, from_class) :
         
         
     def setCombo(self):
+        self.initDatabase()
+        
         self.sql = "select ko_name from category order by id"
         self.mycursor.execute(self.sql)
         categoryList = self.mycursor.fetchall()
+        self.mycursor.close()
         
         self.categoryCombo.addItem("전체")
         for item in categoryList:
@@ -158,6 +160,8 @@ class WindowClass(QMainWindow, from_class) :
         outTimeStart = self.outTimeStart.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         outTimeEnd = self.outTimeEnd.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         
+        self.initDatabase()
+        
         self.sql = ("select id, uid, tag_info, \
                             (select ko_name from category where id=category_id) as category_name, \
                             in_time, \
@@ -188,6 +192,8 @@ class WindowClass(QMainWindow, from_class) :
         
         self.mycursor.execute(self.sql)
         result = self.mycursor.fetchall()
+        
+        self.mycursor.close()
         
         for row in result:
             resultRow = self.table.rowCount()
