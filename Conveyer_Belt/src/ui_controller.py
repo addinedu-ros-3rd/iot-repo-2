@@ -158,6 +158,7 @@ class WindowClass(QMainWindow, from_class) :
         self.mycursor.execute(self.sql)
         categoryList = self.mycursor.fetchall()
         self.mycursor.close()
+        self.remote.close()
         
         self.categoryCombo.addItem("전체")
         for item in categoryList:
@@ -250,6 +251,7 @@ class WindowClass(QMainWindow, from_class) :
         result = self.mycursor.fetchall()
         
         self.mycursor.close()
+        self.remote.close()
         
         for row in result:
             resultRow = self.table.rowCount()
