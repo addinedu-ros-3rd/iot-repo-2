@@ -1,6 +1,7 @@
 # 물류 자동화 시스템
 <p align="center">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/1ff34acc-31dc-4b7b-8f39-6a2308d35edd" height="400" width="600">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f307b3a5-0992-4a52-91ca-687a7f884c1c" height="400" width="600">
 </p>
 
 ## 프로젝트 기간
