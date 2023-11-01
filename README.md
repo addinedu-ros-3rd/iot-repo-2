@@ -102,3 +102,35 @@
 <p align="center">
   <img src="https://github.com/YunOh21/edu/assets/86283716/b9ad98dc-5b48-4f02-925b-522748cd4d19">
 </p>
+
+## 실행하려면
+- 라이브러리 설치
+```
+pip install -r requirements.txt
+```
+  - Conveyer_Belt/requirements.txt 파일을 사용합니다.
+  - RC카는 파이썬을 사용하지 않았습니다.
+- db property 파일 설정: DB 접속은 config.ini 파일로 설정했습니다. git에 연동하지 않았으므로, 다음과 같은 형태로 생성이 필요합니다.
+```
+[dev]
+host = 
+port = 
+user = 
+password = 
+database = 
+```
+- ini 파일이 가리키는 데이터베이스에 접속 후, Conveyer_Belt/create_and_init.sql 파일을 사용합니다.
+```
+source create_and_init.sql
+```
+- 파일명이나 경로, 형식을 수정한다면 Conveyer_Belt/src/serial_db.py와 ui_controller.py 파일도 수정이 필요합니다.
+
+## 참고자료
+- 기술문서
+  - PyQt5: https://lastminuteengineers.com/how-rfid-works-rc522-arduino-tutorial/
+  - Arduino: https://www.arduino.cc/reference/en/
+  - pySerial: https://pyserial.readthedocs.io/en/latest/
+- 그외
+  - 컨베이어벨트: https://youtu.be/lV08Ol6wmts?feature=shared
+  - RC카: https://youtu.be/Y7B1dHH443A?feature=shared
+  - RFID: https://lastminuteengineers.com/how-rfid-works-rc522-arduino-tutorial/
