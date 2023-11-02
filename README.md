@@ -101,11 +101,11 @@
 
 ### RC 주행 로봇
 <p align="center">
-  <img src="https://github.com/YunOh21/edu/assets/86283716/c67541fe-5e51-4ef5-ae8b-76062660170e">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/a268251d-23a5-4b40-adc2-8f239d2fb556">
 </p>
 
 <p align="center">
-  <img src="https://github.com/YunOh21/edu/assets/86283716/b9ad98dc-5b48-4f02-925b-522748cd4d19">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/35783144-606f-4dc0-b59d-79b61690602f">
 </p>
 
 ## 실행하려면
