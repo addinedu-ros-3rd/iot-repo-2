@@ -1,4 +1,5 @@
-create table category(
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE category(
     id int not null auto_increment,
     name varchar(16),
     ko_name varchar(16),
@@ -6,7 +7,8 @@ create table category(
     constraint uq_name_category unique(name)
 );
 
-create table section(
+DROP TABLE IF EXISTS `section`;
+CREATE TABLE section(
 	id int not null auto_increment,
 	name varchar(16),
 	category_id int,  -- section의 category_id는 nullable (입고장은 category가 없음)
@@ -17,7 +19,8 @@ create table section(
 		on update cascade on delete cascade
 );
 
-create table rfid(
+DROP TABLE IF EXISTS `rfid`;
+CREATE TABLE rfid(
 	id int not null auto_increment,
 	uid varchar(16),
 	in_time timestamp, -- 커넥션 시간대 기준으로 UTC를 조회하여 UTC 값 저장
@@ -36,7 +39,8 @@ create table rfid(
         on update cascade on delete cascade  -- 부모 테이블 레코드 update/delete 시, 해당 레코드를 참조하는 자식 테이블 레코드도 update/delete
 );
 
-create table belt(
+DROP TABLE IF EXISTS `belt`;
+CREATE TABLE belt(
 	id int not null auto_increment,
 	activated boolean,
 	speed int,
@@ -44,7 +48,8 @@ create table belt(
 	constraint pk_belt primary key(id)
 );
 
-create table car(
+DROP TABLE IF EXISTS `car`;
+CREATE TABLE car(
 	id int not null auto_increment,
 	isLineDriving boolean,
 	isAutoDriving boolean,
@@ -55,7 +60,8 @@ create table car(
 	constraint pk_car primary key(id)
 );
 
-create table warning_log(
+DROP TABLE IF EXISTS `warning_log`;
+CREATE TABLE warning_log(
 	id int not null auto_increment,
 	belt_id int,
 	car_id int,
@@ -70,7 +76,8 @@ create table warning_log(
 		on update cascade on delete cascade
 );
 
-create table car_log(
+DROP TABLE IF EXISTS `car_log`;
+CREATE TABLE car_log(
 	id int not null auto_increment,
 	car_id int,
 	log_time timestamp default current_timestamp,
@@ -82,18 +89,18 @@ create table car_log(
 );
 
 
-insert into category (name) values
+INSERT INTO category (name) values
 	('seoul_storage'),
 	('busan_storage'),
 	('outgoing');
 
-insert into section (name, category_id) values
+INSERT INTO section (name, category_id) values
 	('receiving', NULL),
 	('slide_1', 1),
 	('slide_2', 2),
 	('drop', 3);
 
-insert into rfid (uid, category_id) values
+INSERT INTO rfid (uid, category_id) values
 	('C3 B4 D1 0D', 1),
 	('23 42 CE 0D', 2),
 	('23 49 CE 0D', 3),

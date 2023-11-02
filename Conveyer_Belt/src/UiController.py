@@ -1,21 +1,21 @@
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
+from PyQt5.QtCore import QThread, pyqtSignal
+from DB import *
+
+import sys
 import datetime
 import cv2
-from PyQt5.QtCore import QThread, pyqtSignal
 import time
-
 import re
 import time
 import serial
-import mysql.connector
-import configparser
-# import serial_db
+import logging
 
-from_class = uic.loadUiType("conveyer.ui")[0]
+
+from_class = uic.loadUiType("Conveyor.ui")[0]
 
 class Camera(QThread):
     update = pyqtSignal()
@@ -59,11 +59,6 @@ class WindowClass(QMainWindow, from_class) :
         
         self.btnFilterReset.clicked.connect(self.reset)
         self.btnSearch.clicked.connect(self.search)
-        
-        # received_data = serial_db.read_serial()
-
-        # if received_data == 'w':
-        #     self.showWarning()
 
         self.isCameraOn = False
         self.isRecStart = False
@@ -98,7 +93,7 @@ class WindowClass(QMainWindow, from_class) :
             self.ser = serial.Serial("/dev/ttyACM0", 9600)
             time.sleep(1)
         except:
-            print("Device cannot be found.")
+            logging.error("Device cannot be found.")
             sys.exit(0)
 
 
@@ -111,23 +106,6 @@ class WindowClass(QMainWindow, from_class) :
             self.ser.write(b'0')
             self.isBeltRunning = False
             self.btnStart.setText("Start")
-            
-            
-    def initDatabase(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        dev = config['dev']
-        
-        try:
-            self.remote = mysql.connector.connect(
-                user = dev['user'],
-                password = dev['password'],
-                port = dev['port'],
-                host = dev['host'],
-                database = dev['database'])
-            self.mycursor = self.remote.cursor(buffered=True)
-        except Exception as e:
-            print("Failed to connect database", e)
             
             
     def reset(self):
@@ -152,13 +130,12 @@ class WindowClass(QMainWindow, from_class) :
         
         
     def setCombo(self):
-        self.initDatabase()
+        db = DB()
         
         self.sql = "select ko_name from category order by id"
-        self.mycursor.execute(self.sql)
-        categoryList = self.mycursor.fetchall()
-        self.mycursor.close()
-        self.remote.close()
+        db.execute(self.sql)
+        categoryList = db.fetchAll()
+        db.disconnect()
         
         self.categoryCombo.addItem("전체")
         for item in categoryList:
@@ -217,7 +194,7 @@ class WindowClass(QMainWindow, from_class) :
         outTimeStart = self.outTimeStart.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         outTimeEnd = self.outTimeEnd.dateTime().toString("yyyy-MM-dd HH:mm:ss")
         
-        self.initDatabase()
+        db = DB()
         
         self.sql = ("select id, uid, tag_info, \
                             (select ko_name from category where id=category_id) as category_name, \
@@ -245,13 +222,11 @@ class WindowClass(QMainWindow, from_class) :
         elif self.statusCombo.currentText() == "출고":
             self.sql += " AND out_time IS NOT NULL"
             
-        # print(self.sql)
+        logging.info(self.sql)
         
-        self.mycursor.execute(self.sql)
-        result = self.mycursor.fetchall()
-        
-        self.mycursor.close()
-        self.remote.close()
+        db.execute(self.sql)
+        result = db.fetchAll()
+        db.disconnect()
         
         for row in result:
             resultRow = self.table.rowCount()
@@ -261,19 +236,17 @@ class WindowClass(QMainWindow, from_class) :
         
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         
-        
-    def showWarning(self):
-        QMessageBox.warning(self, "오분류되었습니다.")
 
-    
     def capture(self):
         self.now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = self.now + ".png"
 
         cv2.imwrite(filename, cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB))
     
+    
     def updateRecording(self):
         self.writer.write(cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR))
+    
     
     def clickRecord(self):
         if self.isRecStart == False:
@@ -288,6 +261,7 @@ class WindowClass(QMainWindow, from_class) :
 
             self.recordingStop()
 
+
     def recordingStart(self):
         self.record.running = True
         self.record.start()
@@ -301,11 +275,13 @@ class WindowClass(QMainWindow, from_class) :
 
         self.writer = cv2.VideoWriter(filename, self.fourcc, 20.0, (w, h))
 
+
     def recordingStop(self):
         self.record.running = False
 
         if self.isRecStart == True:
             self.writer.release()
+    
     
     def clickCamera(self):
         if self.isCameraOn == False:
@@ -325,14 +301,17 @@ class WindowClass(QMainWindow, from_class) :
             self.cameraStop()
             self.recordingStop()
     
+    
     def cameraStart(self):
         self.camera.running = True
         self.camera.start()
         self.video = cv2.VideoCapture(-1)
 
+
     def cameraStop(self):
         self.camera.running = False
         self.video.release()
+    
     
     def updateCamera(self):
         retval, image = self.video.read()

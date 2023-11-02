@@ -1,75 +1,62 @@
 from datetime import datetime
+from DB import *
 
 import serial
-import mysql.connector
-import configparser
+import logging
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-dev = config['dev']
-
-remote = mysql.connector.connect(
-	user = dev['user'],
-    password = dev['password'],
-    port = dev['port'],
-	host = dev['host'],
-	database = dev['database'])
-
-cursor = remote.cursor()
+db = DB()
 ser = serial.Serial("/dev/ttyACM0", 9600)
 
 
 # UI에서 오분류를 감지하기 위해 serial read 모듈화
-def read_serial():
+def readSerial():
     return ser.read().decode().strip()
 
 
-def update_in():
+def updateIn():
     now_section = int(read.split(":")[0][-1]) + 1
     
     try:
         query = "update rfid set in_time=%s, now_section=%s, section_update_time=%s where uid=%s"
-        cursor.execute(query, (now_ts, now_section, now_ts, uid))
-        remote.commit()
+        db.execute(query, (now_ts, now_section, now_ts, uid))
         
         query = "select category_id from rfid where uid=%s"
-        cursor.execute(query, (uid,))
-        category_id = cursor.fetchone()[0]
+        db.execute(query, (uid,))
+        category_id = db.fetchOne()
         
         ser.write(bytes(str(category_id), "utf-8"))  # 1, 2, 3
             
     except Exception as e:
-        print(e)
+        logging.error(f"Error update_in: {e}")
         
 
-def update_store():
+def updateStore():
     now_section = int(read.split(":")[1]) + 1
     
     try:
         query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
-        cursor.execute(query, (now_section, now_ts, uid))
-        remote.commit()
+        db.execute(query, (now_section, now_ts, uid))
     except Exception as e:
-        print(e)
+        logging.error(f"Error update_store: {e}")
         
         
-def update_out():
+def updateOut():
     now_section = 4
     
     try:
         query = "update rfid set now_section=%s, section_update_time=%s, out_time=%s where uid=%s"
-        cursor.execute(query, (now_section, now_ts, now_ts, uid))
-        remote.commit()
+        db.execute(query, (now_section, now_ts, now_ts, uid))
     except Exception as e:
-        print(e)
+        logging.error(f"Error update_out: {e}")
 
+msg_complete = False
 
-while True:
-    inRead = False
-    storeRead = False
-    outRead = False
+while not msg_complete:
+    in_read = False
+    store_read = False
+    out_read = False
 
-    while (not inRead) and (not storeRead) and (not outRead):
+    while (not in_read) and (not store_read) and (not out_read):
         read = ser.readline().decode()
         print(read)
         # print(len(read))
@@ -77,9 +64,9 @@ while True:
         # store:i:uid
         # out:uid
         if len(read) == 33:
-            inRead = True
+            in_read = True
         elif len(read) == 22:
-            storeRead = True
+            store_read = True
         elif len(read) == 18:
             outRead = True
     
@@ -88,15 +75,14 @@ while True:
     now_ts = now.strftime('%Y-%m-%d %H:%M:%S')  # 서버의 시간을 보관 = 서버 시간이 UTC이면 UTC로 보관(로컬 테스트 시 한국 시간 저장됨)
     
     # RFID를 읽는 경우와 아닌 경우(출고시각을 받는 경우)를 구분해야 함
-    if inRead == True:
-        update_in()
+    if in_read == True:
+        updateIn()
             
-    elif storeRead == True:
-        update_store()
+    elif store_read == True:
+        updateStore()
+        
+    elif out_read == True:
+        updateOut()
         
     else:
-        update_out()
-
-ser.close()
-cursor.close()
-remote.close()
+        logging.warning("Unknown case occured")

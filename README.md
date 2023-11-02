@@ -128,7 +128,7 @@ database =
 ```
 source create_and_init.sql
 ```
-- 파일명이나 경로, 형식을 수정한다면 Conveyer_Belt/src/serial_db.py와 ui_controller.py 파일도 수정이 필요합니다.
+- 파일명이나 경로, 형식을 수정한다면 Conveyer_Belt/src/DB.py 파일도 수정이 필요합니다.
 
 ## 참고자료
 - 기술문서
