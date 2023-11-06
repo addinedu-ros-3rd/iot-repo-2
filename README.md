@@ -6,7 +6,7 @@
 
 <p align=center>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">
-    <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/0260d166-04ad-42fd-a3f3-28540d2c599d" width="90%">
+    <img src="https://i.ytimg.com/vi/QK5B_ghezHc/maxresdefault.jpg" width="90%">
   </a>
   <br>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">데모 영상 보러 가기</a>
