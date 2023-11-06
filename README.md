@@ -23,6 +23,7 @@
 ![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
 ![RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
 ![Qt](https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=Qt&logoColor=white)
+![mitapp](https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/d8075c9f-4c9d-45f8-bf13-b0fd450dbaa1)
 </div>
 
 ### 언어
@@ -101,15 +102,11 @@
 
 ### RC 주행 로봇
 <p align="center">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/dedc3ad0-763d-4250-ab47-4591d0300729">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/ac5a0124-aead-4662-b51e-d0431fe0b7a0">
 </p>
 
 <p align="center">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/8297367d-1b15-466f-9f83-b5d35759e362">
-</p>
-
-<p align="center">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/82fc8b4a-1c20-4d23-a07a-0c490207ee24">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/5836a1b1-2fd9-4a6c-8764-dbfc44cf26d0">
 </p>
 
 ## 실행하려면
