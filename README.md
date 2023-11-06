@@ -1,4 +1,32 @@
 # 물류 자동화 시스템
+## 시스템 구성
+<p align="center">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/b917c461-7ad4-43a7-91b3-2db9daa03f0e" >
+</p>
+
+- 컨베이어 벨트 : 상품 인식, 자동 분류
+- RC 주행 로봇 : 라인 주행, 장애물 인식
+- 데이터베이스 : 재고 추적, 관리
+- 서버 : 통신 및 통합 제어
+- CCTV : 화면 촬영 및 녹화
+- 통합 관리 GUI & 로봇 제어 모바일 어플리케이션
+
+### ERD
+<p align=center width="100%">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/03799f37-d06a-4bb5-b47b-e384711d4e23" width="45%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f7d0aa5f-67a6-4f70-982f-5e7bb4a25558" width="45%" style="float:left">
+</p>
+
+## 팀원 소개 및 역할
+|구분|이름|역할|
+|---|---|---|
+|팀장|강한얼|회로 설계, 하드웨어 제작, DC 모터 제어, 다중 RFID 인식, 다중 분류기 서보 모터 제어, CCTV|
+|팀원|강소희|회로 설계, 하드웨어 제작, 서보 모터 제어|
+|팀원|오윤|DB 설계, PyQt, 시리얼 통신, RFID 인식|
+|팀원|조태상|회로 설계, IR 및 초음파 센서 튜닝|
+|팀원|한승준|하드웨어 제작, 블루투스 시리얼 통신, 모바일 앱 제작, QA|
+
+## 시연 영상
 <p align=center width="100%">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/1ff34acc-31dc-4b7b-8f39-6a2308d35edd" height="400" width="45%" style="float:left">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f307b3a5-0992-4a52-91ca-687a7f884c1c" height="400" width="45%" style="float:left">
@@ -43,15 +71,6 @@
 - RFID와 데이터베이스를 활용 재고 추적
 - 라인 유도 주행, 장애물 인식 기술을 사용한 자율 주행
 
-## 팀원 소개 및 역할
-|구분|이름|역할|
-|---|---|---|
-|팀장|강한얼|회로 설계, 하드웨어 제작, DC 모터 제어, 다중 RFID 인식, 다중 분류기 서보 모터 제어, CCTV|
-|팀원|강소희|회로 설계, 하드웨어 제작, 서보 모터 제어|
-|팀원|오윤|DB 설계, PyQt, 시리얼 통신, RFID 인식|
-|팀원|조태상|회로 설계, IR 및 초음파 센서 튜닝|
-|팀원|한승준|하드웨어 제작, 블루투스 시리얼 통신, 모바일 앱 제작, QA|
-
 ## 기능리스트
 ### 컨베이어 벨트
 - 컨베이어 벨트 제어
@@ -82,18 +101,6 @@
 - 통신
   - 실시간으로 IR 센서 및 거리 값을 받음
 
-## 시스템 구성
-<p align="center">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/b917c461-7ad4-43a7-91b3-2db9daa03f0e" >
-</p>
-
-- 컨베이어 벨트 : 상품 인식, 자동 분류
-- RC 주행 로봇 : 라인 주행, 장애물 인식
-- 데이터베이스 : 재고 추적, 관리
-- 서버 : 통신 및 통합 제어
-- CCTV : 화면 촬영 및 녹화
-- 통합 관리 GUI & 로봇 제어 모바일 어플리케이션
-
 ## 순서도
 ### 컨베이어 벨트
 <p align="center">
@@ -108,6 +115,17 @@
 <p align="center">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/5836a1b1-2fd9-4a6c-8764-dbfc44cf26d0">
 </p>
+
+## 설계에 있었지만 구현하지 못한 내용
+- GUI를 통한 belt on/off/속도 제어 기능
+  - 모터 제어 가능한 하드웨어 고장
+  - belt 테이블 활용 x
+- RFID 리더기로 재고 관리 및 오분류/분실 방지 기능
+  - RFID-RC522 모듈 사용, 회로 또는 전원 문제로 리더기가 인식하지 못하는 케이스 다수 발생
+  - warning_log 테이블 활용 x
+- 차량 출발/도착/현재 위치 DB에 update하여 벨트와 상호 통신
+  - 개발 기간 단축을 위해 블루투스 통신으로만 차량 제어, 와이파이 연계하지 못함
+  - car, car_log 테이블 활용 x
 
 ## 실행하려면
 - 라이브러리 설치
