@@ -6,7 +6,7 @@
 
 <p align=center>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">
-    <img src="http://img.youtube.com/vi/QK5B_ghezHc/0.jpg">
+    <img src="http://img.youtube.com/vi/QK5B_ghezHc/0.jpg" width="90%">
   </a>
   <br>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">데모 영상 보러 가기</a>
