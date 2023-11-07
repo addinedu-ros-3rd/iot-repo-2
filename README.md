@@ -13,8 +13,8 @@
 
 ### ERD
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/03799f37-d06a-4bb5-b47b-e384711d4e23" width="45%" style="float:left">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f7d0aa5f-67a6-4f70-982f-5e7bb4a25558" width="45%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/03799f37-d06a-4bb5-b47b-e384711d4e23" height="300" width="45%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f7d0aa5f-67a6-4f70-982f-5e7bb4a25558" height="300" width="45%" style="float:left">
 </p>
 
 ## 팀원 소개 및 역할
