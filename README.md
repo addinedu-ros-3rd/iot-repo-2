@@ -6,7 +6,7 @@
 
 ## 시스템 구성
 <p align="center">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/b917c461-7ad4-43a7-91b3-2db9daa03f0e" >
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/5707552a-9e11-4089-819d-b437377eab6d" width="90%" style="float:left">
 </p>
 
 - Automatic Sorter (자동 화물 분류기) : 화물 인식, 자동 분류
@@ -64,6 +64,9 @@
 </p>
 
 ### 2) 하드웨어 구성
+<p align=center width="100%">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/95ad5f7f-eeac-4258-aadc-dce893411d87"  width="90%" style="float:left">
+</p>
 
 ### 3) 기능 리스트
 - 분류기 제어
@@ -146,7 +149,7 @@
   - 개발 기간 단축을 위해 블루투스 통신으로만 차량 제어, 와이파이 연계하지 못함
   - car 테이블, car_log 테이블 활용 x
 
-## 5. 실행하려면
+## 5. 실행
 - 라이브러리 설치
 ```
 pip install -r requirements.txt
