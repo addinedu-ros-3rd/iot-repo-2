@@ -66,7 +66,7 @@
 
 ### 2) 하드웨어 구성
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/95ad5f7f-eeac-4258-aadc-dce893411d87"  width="80%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/95ad5f7f-eeac-4258-aadc-dce893411d87"  width="90%" style="float:left">
 </p>
 
 ### 3) 기능 리스트
@@ -90,12 +90,12 @@
 ## 2. Autonomous Driving Robot (자율 주행 로봇)
 ### 1) State Diagram 
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/104709955/ba1e3516-e9c0-4c65-9f24-a3722b56cf50"  width="80%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/104709955/ba1e3516-e9c0-4c65-9f24-a3722b56cf50"  width="90%" style="float:left">
 </p>
 
 ### 2) 하드웨어 구성 
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/46445b2c-462b-4fed-b6d5-0dc7a5d866c8"  width="80%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/46445b2c-462b-4fed-b6d5-0dc7a5d866c8"  width="90%" style="float:left">
 </p>
 
 ### 3) 기능 리스트
@@ -117,12 +117,12 @@
 
 ## 3. PC
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/6f2544c6-aa65-4219-a7e0-23f6e63e24ea"  width="60%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/6f2544c6-aa65-4219-a7e0-23f6e63e24ea"  width="50%" style="float:left">
 </p>
 
 ### 1) 중앙 관제 시스템 GUI
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/55a9a938-947d-474f-8270-0e2fe1ee35c0"  width="60%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/55a9a938-947d-474f-8270-0e2fe1ee35c0"  width="90%" style="float:left">
 </p>
 
 ① 입고/처리/출고 시점 선택 (달력으로 년월일 선택, 시분초는 입력) <br>
