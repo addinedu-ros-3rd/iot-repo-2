@@ -1,7 +1,8 @@
 # 물류 자동화 시스템
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/7cecec09-93a3-41dd-89e9-d0f1c56d90fe" height="400" width="45%" style="float:left">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/a692ad11-e3d7-41f0-9d14-d83217968a53" height="400" width="45%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/1db8d4a6-1a5e-4e2f-a21d-fcc9dca9c9e8" height="300" width="20%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/7cecec09-93a3-41dd-89e9-d0f1c56d90fe" height="300" width="35%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/a692ad11-e3d7-41f0-9d14-d83217968a53" height="300" width="35%" style="float:left">
 </p>
 
 ## 시스템 구성
@@ -13,7 +14,7 @@
 - Autonomous Driving Robot (자율 주행 로봇) : 라인 주행, 장애물 인식
 - Central Management System (중앙 관리 시스템) : 통신 및 통합 제어
 - DB : 재고 추적, 관리
-- CCTV : 화면 촬영 및 녹화
+- CCTV : 현장 녹화
 
 
 
@@ -65,57 +66,63 @@
 
 ### 2) 하드웨어 구성
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/95ad5f7f-eeac-4258-aadc-dce893411d87"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/95ad5f7f-eeac-4258-aadc-dce893411d87"  width="80%" style="float:left">
 </p>
 
 ### 3) 기능 리스트
 - 분류기 제어
   - 컨베이어 벨트 원격 제어(On/Off)
+    
 - 화물 인식 및 분류
   - RFID 모듈을 통한 화물 ID 인식
   - ID별 화물의 분류 위치를 DB에서 조회하여 화물의 이동 위치를 결정
   - 결정된 위치의 서보 모터 분류기를 실행하여 이동 하는 화물을 분류 및 출고
+
 - 재고 추적 및 관리
   - DB를 통해 각 화물의 ID 및 분류 위치 데이터 관리
   - 각 화물이 입고된 시점을 DB에 업데이트
   - 분류 및 출고된 시점의 시간을 DB에 업데이트
   - CCTV를 통해 상황 녹화
+
 - 통신
   - 통신으로 PC와 데이터를 주고 받음
 
 ## 2. Autonomous Driving Robot (자율 주행 로봇)
 ### 1) State Diagram 
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/104709955/ba1e3516-e9c0-4c65-9f24-a3722b56cf50"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/104709955/ba1e3516-e9c0-4c65-9f24-a3722b56cf50"  width="80%" style="float:left">
 </p>
 
 ### 2) 하드웨어 구성 
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/46445b2c-462b-4fed-b6d5-0dc7a5d866c8"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/46445b2c-462b-4fed-b6d5-0dc7a5d866c8"  width="80%" style="float:left">
 </p>
 
 ### 3) 기능 리스트
 - 로봇 제어
   - 관리자 앱을 통해 로봇을 ON / OFF 및 움직임을 제어
+
 - 라인 인식
   - 로봇 앞쪽에 위치한 IR (Infrared ray) 센서를 통해 라인을 인식
   - IR 센서는 좌, 우에 위치하며 직선, 곡선, 정지 라인을 인식
   - 인식한 라인의 형태에 따라 4개 모터에 알맞은 시나리오 (직진, 좌회전, 우회전, 정지)
+
 - 장애물 인식
-  - Ultrasonic 센서를 통해 차의 진행방향에 장애물이 있는지 없는지 판단
+  - Ultrasonic 센서를 통해 차의 진행방향에 장애물 여부 판단
   - 로봇의 진행방향과 동일한 선상에서 장애물을 인식한 경우 일단 정지
-  - 서보모터를 회천하여 왼쪽과 오른쪽의 장애물 여부를 판단하고 정지 상태 유지
+  - 서보 모터를 회천하여 왼쪽과 오른쪽의 장애물 여부를 판단하고 정지 상태 유지
+
 - 통신
   - 실시간으로 IR 센서 및 거리 값을 받음
 
 ## 3. PC
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/6f2544c6-aa65-4219-a7e0-23f6e63e24ea"  width="75%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/6f2544c6-aa65-4219-a7e0-23f6e63e24ea"  width="60%" style="float:left">
 </p>
 
 ### 1) 중앙 관제 시스템 GUI
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/55a9a938-947d-474f-8270-0e2fe1ee35c0"  width="75%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/55a9a938-947d-474f-8270-0e2fe1ee35c0"  width="60%" style="float:left">
 </p>
 
 ① 입고/처리/출고 시점 선택 (달력으로 년월일 선택, 시분초는 입력) <br>
@@ -142,9 +149,11 @@
 - GUI를 통한 belt on/off/속도 제어 기능
   - 모터 제어 가능한 하드웨어 고장
   - belt 테이블 활용 x
+
 - RFID 리더기로 재고 관리 및 오분류/분실 방지 기능
   - RFID-RC522 모듈 사용, 회로 또는 전원 문제로 리더기가 인식하지 못하는 케이스 다수 발생
   - warning_log 테이블 활용 x
+
 - 차량 출발/도착/현재 위치 DB에 update하여 벨트와 상호 통신
   - 개발 기간 단축을 위해 블루투스 통신으로만 차량 제어, 와이파이 연계하지 못함
   - car 테이블, car_log 테이블 활용 x
@@ -174,7 +183,7 @@ source create_and_init.sql
 ## 6. 시연 영상
 <p align=center>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">
-    <img src="https://i.ytimg.com/vi/QK5B_ghezHc/maxresdefault.jpg" width="90%">
+    <img src="https://i.ytimg.com/vi/QK5B_ghezHc/maxresdefault.jpg" width="40%">
   </a>
   <br>
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">데모 영상 보러 가기</a>
@@ -185,6 +194,7 @@ source create_and_init.sql
   - PyQt5: https://lastminuteengineers.com/how-rfid-works-rc522-arduino-tutorial/
   - Arduino: https://www.arduino.cc/reference/en/
   - pySerial: https://pyserial.readthedocs.io/en/latest/
+
 - 그외
   - 컨베이어벨트: https://youtu.be/lV08Ol6wmts?feature=shared
   - RC카: https://youtu.be/Y7B1dHH443A?feature=shared
