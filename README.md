@@ -38,7 +38,7 @@
 ![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
 ![RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
 ![Qt](https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=Qt&logoColor=white)
-![mitapp](https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/d8075c9f-4c9d-45f8-bf13-b0fd450dbaa1)
+![mitapp](https://github.com/addinedu-ros-3rd/iot-repo-2/assets/81555330/11db2c8f-f4ae-46c0-ae71-d83b6e9e1d5c)
 </div>
 
 ### 언어
