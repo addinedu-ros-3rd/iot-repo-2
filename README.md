@@ -59,9 +59,9 @@
 - 라인 유도 주행, 장애물 인식 기술을 사용한 자율 주행
 
 ## 1. Automatic Sorter (자동 화물 분류기)
-### 1) Sequence Diagram
+### 1) 화물 입고, 분류 시나리오
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/f3411199-f8b4-4842-9353-69ec493bd56a"  width="60%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/67181040-be71-405e-a3eb-b6e1b4445e53"  width="70%" style="float:left">
 </p>
 
 ### 2) 하드웨어 구성
@@ -88,9 +88,9 @@
   - 통신으로 PC와 데이터를 주고 받음
 
 ## 2. Autonomous Driving Robot (자율 주행 로봇)
-### 1) State Diagram 
+### 1) 주행 시나리오 
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/104709955/ba1e3516-e9c0-4c65-9f24-a3722b56cf50"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/71eef0f0-99ae-4f48-89e1-74cf73e2dc82"  width="90%" style="float:left">
 </p>
 
 ### 2) 하드웨어 구성 
@@ -117,7 +117,7 @@
 
 ## 3. PC
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/6f2544c6-aa65-4219-a7e0-23f6e63e24ea"  width="50%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/143172717/b64cfec8-6e68-4a55-8b92-c6d6072ecca3"  width="70%" style="float:left">
 </p>
 
 ### 1) 중앙 관제 시스템 GUI
@@ -139,11 +139,10 @@
 ⑫ CCTV 현재 화면
 
 ### 2) Database : 분류기 및 로그 데이터 구조
-<p align="center">
-    <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/b0c2c419-21a1-42c0-894a-8bfad54c3630" height="300" width="45%">
-    <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/0637629c-c81f-4834-9b1d-a1b6be770c09" height="300" width="45%">
+<p align=center width="100%">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/b07845ea-571a-48a7-8916-c66f36a1fdb8"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/5c533b4b-1df4-4bea-9170-edd96c33d630"  width="90%" style="float:left">
 </p>
-
 
 ## 4. 설계에 있었지만 구현하지 못한 내용
 - GUI를 통한 belt on/off/속도 제어 기능
