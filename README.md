@@ -24,8 +24,8 @@
 |팀장|강한얼|전체 시스템 구성도 제작, 컨베이어 벨트 제어 전반(RFID, 서보 모터, DC 모터), CCTV 기능|
 |팀원|강소희|분류기 서보 모터 제어, 회로 설계, 하드웨어 제작|
 |팀원|오윤|DB 설계, Query 작성, PyQt, 시리얼 통신, RFID 인식|
-|팀원|조태상|하드웨어 제작, IR 및 초음파 센서 튜닝, RC카 순서도 작성|
-|팀원|한승준|RC카 시스템 구성도 제작, 회로 설계, 블루투스 시리얼 통신, 모바일 앱 제작|
+|팀원|조태상|IR 및 초음파 센서 튜닝, 자율 주행 로봇 제작|
+|팀원|한승준|자율 주행 로봇 시스템 구성도 제작, 회로 설계, 블루투스 시리얼 통신, 모바일 앱 제작|
 
 ## 프로젝트 기간
 2023.10.23 ~ 2023.10.27 (5일)
@@ -164,8 +164,7 @@
 pip install -r requirements.txt
 ```
   - Conveyer_Belt/requirements.txt 파일을 사용합니다.
-  - RC카는 파이썬을 사용하지 않았습니다.
-- db property 파일 설정: DB 접속은 config.ini 파일로 설정했습니다. git에 연동하지 않았으므로, 다음과 같은 형태로 생성이 필요합니다.
+  - db property 파일 설정: DB 접속은 config.ini 파일로 설정했습니다. git에 연동하지 않았으므로, 다음과 같은 형태로 생성이 필요합니다.
 ```
 [dev]
 host = 
@@ -196,6 +195,6 @@ source create_and_init.sql
   - pySerial: https://pyserial.readthedocs.io/en/latest/
 
 - 그외
-  - 컨베이어벨트: https://youtu.be/lV08Ol6wmts?feature=shared
-  - RC카: https://youtu.be/Y7B1dHH443A?feature=shared
+  - 분류기: https://youtu.be/lV08Ol6wmts?feature=shared
+  - 주행 로봇: https://youtu.be/Y7B1dHH443A?feature=shared
   - RFID: https://lastminuteengineers.com/how-rfid-works-rc522-arduino-tutorial/
