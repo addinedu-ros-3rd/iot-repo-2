@@ -140,7 +140,7 @@
 
 ### 2) Database : 분류기 및 로그 데이터 구조
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/b07845ea-571a-48a7-8916-c66f36a1fdb8"  width="90%" style="float:left">
+  <img src="https://velog.velcdn.com/images/yun5/post/f19fb333-c75b-4cae-a6e1-b360eece2bfa/image.png"  width="90%" style="float:left">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/5c533b4b-1df4-4bea-9170-edd96c33d630"  width="90%" style="float:left">
 </p>
 
