@@ -140,8 +140,8 @@
 
 ### 2) Database : 분류기 및 로그 데이터 구조
 <p align=center width="100%">
-  <img src="https://velog.velcdn.com/images/yun5/post/f19fb333-c75b-4cae-a6e1-b360eece2bfa/image.png"  width="90%" style="float:left">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/5c533b4b-1df4-4bea-9170-edd96c33d630"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/f3068ab0-60aa-4da3-94c8-6bbcbf976f7f"  width="90%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/677f1675-5f62-4c38-a1f1-825987cf0ae8"  width="90%" style="float:left">
 </p>
 
 ## 4. 설계에 있었지만 구현하지 못한 내용
