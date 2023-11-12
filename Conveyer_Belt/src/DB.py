@@ -1,11 +1,12 @@
 import mysql.connector
-import logging
-
 import configparser
+import Logger
 
 config = configparser.ConfigParser()
 config.read('config.ini')
 dev = config['dev']
+
+log = Logger()
 
 class DB():
     
@@ -25,7 +26,7 @@ class DB():
             self.cursor = self.conn.cursor(buffered=True)
    
         except Exception as e:
-            logging.error(f"Error __init__: {e}")
+            log.error(f" DB __init__ : {e}")
             self.conn = None
 
 
@@ -46,7 +47,7 @@ class DB():
             self.conn.commit()
 
         except Exception as e:
-            logging.error(f"Error execute: {e}")
+            log.error(f" DB execute : {e}")
 
         finally:
             self.disconnect()
@@ -58,7 +59,7 @@ class DB():
             return self.cursor.fetchone()[0]
 
         except Exception as e:
-            logging.error(f"Error fetchOne: {e}")
+            log.error(f" DB fetchOne : {e}")
 
         finally:
             self.disconnect()
@@ -70,7 +71,7 @@ class DB():
             return self.cursor.fetchall()
 
         except Exception as e:
-            logging.error(f"Error fetchOne: {e}")
+            log.error(f" DB fetchAll : {e}")
 
         finally:
             self.disconnect()

@@ -3,7 +3,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
 from PyQt5.QtCore import QThread, pyqtSignal
-from DB import *
 
 import sys
 import datetime
@@ -12,10 +11,13 @@ import time
 import re
 import time
 import serial
-import logging
+
+import DB
+import Logger
 
 
 from_class = uic.loadUiType("Conveyor.ui")[0]
+log = Logger()
 
 class Camera(QThread):
     update = pyqtSignal()
@@ -93,7 +95,7 @@ class WindowClass(QMainWindow, from_class) :
             self.ser = serial.Serial("/dev/ttyACM0", 9600)
             time.sleep(1)
         except:
-            logging.error("Device cannot be found.")
+            log.error("UiController Device cannot be found.")
             sys.exit(0)
 
 
@@ -222,7 +224,7 @@ class WindowClass(QMainWindow, from_class) :
         elif self.statusCombo.currentText() == "출고":
             self.sql += " AND out_time IS NOT NULL"
             
-        logging.info(self.sql)
+        log.info(" UiController " + self.sql)
         
         db.execute(self.sql)
         result = db.fetchAll()

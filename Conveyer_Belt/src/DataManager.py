@@ -1,10 +1,11 @@
 from datetime import datetime
-from DB import *
+import DB
+import Logger
 
 import serial
-import logging
 
 db = DB()
+log = Logger()
 ser = serial.Serial("/dev/ttyACM0", 9600)
 
 
@@ -27,7 +28,7 @@ def updateIn():
         ser.write(bytes(str(category_id), "utf-8"))  # 1, 2, 3
             
     except Exception as e:
-        logging.error(f"Error update_in: {e}")
+        log.error(f" DataManager update_in : {e}")
         
 
 def updateStore():
@@ -37,7 +38,7 @@ def updateStore():
         query = "update rfid set now_section=%s, section_update_time=%s where uid=%s"
         db.execute(query, (now_section, now_ts, uid))
     except Exception as e:
-        logging.error(f"Error update_store: {e}")
+        log.error(f" DataManager update_store : {e}")
         
         
 def updateOut():
@@ -47,7 +48,7 @@ def updateOut():
         query = "update rfid set now_section=%s, section_update_time=%s, out_time=%s where uid=%s"
         db.execute(query, (now_section, now_ts, now_ts, uid))
     except Exception as e:
-        logging.error(f"Error update_out: {e}")
+        log.error(f" DataManager update_out : {e}")
 
 msg_complete = False
 
@@ -85,4 +86,4 @@ while not msg_complete:
         updateOut()
         
     else:
-        logging.warning("Unknown case occured")
+        log.warning("DataManager Unknown case occured")
