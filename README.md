@@ -5,9 +5,6 @@
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/a692ad11-e3d7-41f0-9d14-d83217968a53" height="300" width="35%" style="float:left">
 </p>
 
-## 발표 자료
-https://docs.google.com/presentation/d/1v5rwfUhqAP4vXjpZGAlny1NlASyI4Voo/edit?usp=sharing&ouid=118365173441214220116&rtpof=true&sd=true
-
 ## 시스템 구성
 <p align="center">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/5707552a-9e11-4089-819d-b437377eab6d" width="90%" style="float:left">
@@ -190,7 +187,10 @@ source create_and_init.sql
   <a href="https://youtu.be/QK5B_ghezHc?feature=shared">데모 영상 보러 가기</a>
 </p>
 
-## 7. 참고자료
+## 7. 발표자료
+https://docs.google.com/presentation/d/1v5rwfUhqAP4vXjpZGAlny1NlASyI4Voo/edit?usp=sharing&ouid=118365173441214220116&rtpof=true&sd=true
+
+## 8. 참고자료
 - 기술문서
   - PyQt5: https://lastminuteengineers.com/how-rfid-works-rc522-arduino-tutorial/
   - Arduino: https://www.arduino.cc/reference/en/
