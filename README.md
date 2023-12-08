@@ -5,6 +5,9 @@
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/a692ad11-e3d7-41f0-9d14-d83217968a53" height="300" width="35%" style="float:left">
 </p>
 
+## 발표 자료
+https://docs.google.com/presentation/d/1v5rwfUhqAP4vXjpZGAlny1NlASyI4Voo/edit?usp=sharing&ouid=118365173441214220116&rtpof=true&sd=true
+
 ## 시스템 구성
 <p align="center">
   <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/61872888/5707552a-9e11-4089-819d-b437377eab6d" width="90%" style="float:left">
