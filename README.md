@@ -61,7 +61,7 @@
 ## 1. Automatic Sorter (자동 화물 분류기)
 ### 1) 화물 입고, 분류 시나리오
 <p align=center width="100%">
-  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/67181040-be71-405e-a3eb-b6e1b4445e53"  width="70%" style="float:left">
+  <img src="https://github.com/addinedu-ros-3rd/iot-repo-2/assets/86283716/a0ae4c68-c129-4511-90e1-0079021c4d9e"  width="70%" style="float:left">
 </p>
 
 ### 2) 하드웨어 구성
